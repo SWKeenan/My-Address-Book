@@ -1,6 +1,7 @@
 {% extends 'base.html' %} {% block content %}
-<h1>Add address...</h1>
+<h1>Edit Address</h1>
 <br />
+{% if get_address %}
 <form method="POST">
   {% csrf_token %}
   <div class="form-group">
@@ -9,7 +10,7 @@
       class="form-control"
       id="exampleInputEmail1"
       aria-describedby="emailHelp"
-      placeholder="Full Name"
+      value="{{ get_address.name }}"
       name="name"
     />
   </div>
@@ -19,7 +20,7 @@
       class="form-control"
       id="exampleInputEmail1"
       aria-describedby="emailHelp"
-      placeholder="Email Address"
+      value="{{ get_address.email }}"
       name="email"
     />
   </div>
@@ -29,7 +30,7 @@
       class="form-control"
       id="exampleInputEmail1"
       aria-describedby="emailHelp"
-      placeholder="Phone No."
+      value="{{ get_address.phone }}"
       name="phone"
     />
   </div>
@@ -39,7 +40,7 @@
       class="form-control"
       id="exampleInputEmail1"
       aria-describedby="emailHelp"
-      placeholder="Address"
+      value="{{ get_address.address }}"
       name="address"
     />
   </div>
@@ -49,7 +50,7 @@
       class="form-control"
       id="exampleInputEmail1"
       aria-describedby="emailHelp"
-      placeholder="City"
+      value="{{ get_address.city }}"
       name="city"
     />
   </div>
@@ -59,7 +60,7 @@
       class="form-control"
       id="exampleInputEmail1"
       aria-describedby="emailHelp"
-      placeholder="State"
+      value="{{ get_address.state }}"
       name="state"
     />
   </div>
@@ -69,11 +70,18 @@
       class="form-control"
       id="exampleInputEmail1"
       aria-describedby="emailHelp"
-      placeholder="Zipcode"
+      value="{{ get_address.zipcode }}"
       name="zipcode"
     />
   </div>
   <br />
-  <button type="submit" class="btn btn-secondary">Add Address</button>
+  <button type="submit" class="btn btn-secondary">Edit Address</button>
 </form>
-{% endblock content %}
+<br />
+<br />
+<form action="{% url 'delete' get_address.id %}" method="POST">
+  {% csrf_token %}
+  <input type="hidden" value="{{ get_address.id }}" name="id" />
+  <button type="submit" class="btn btn-secondary">Delete Address</button>
+</form>
+{% endif %} {% endblock content %}
